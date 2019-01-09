@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NewIdentity.Controllers
+{
+    public class MyController : Controller
+    {
+        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
+        {
+            string lang = null;
+            HttpCookie langCookie = Request.Cookies["culture"];
+            if (langCookie != null)
+            {
+                lang = langCookie.Value;
+            }
+            else
+            {
+                var userLanguage = Request.UserLanguages;
+                var userLang = userLanguage != null ? userLanguage[0] : "";
+                if (userLang != "")
+                {
+                    lang = userLang;
+                }
+                else
+                {
+                    lang = Language.GetDefaultLanguage();
+                }
+            }
+            new Language().SetLanguage(lang);
+            return base.BeginExecuteCore(callback, state);
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+            else
+            {
+                Common.MyLogger.Log.Info("Home Page Loaded ...");
+            }
+            //filterContext.Result = new ViewResult
+            //{
+            //    ViewName = "~/Views/Shared/Error.aspx"
+            //};
+            //filterContext.ExceptionHandled = true;
+        }
+    }
+}

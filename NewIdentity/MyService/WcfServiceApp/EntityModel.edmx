@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProductDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ErrorInfoDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErrorInfoMessage" Type="varchar" MaxLength="1000" />
+          <Property Name="ErrorInfoType" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TblParentTask">
+          <Key>
+            <PropertyRef Name="Parent_ID" />
+          </Key>
+          <Property Name="Parent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parent_Task" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblProject">
+          <Key>
+            <PropertyRef Name="Project_ID" />
+          </Key>
+          <Property Name="Project_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Project" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblTask">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parent_ID" Type="int" Nullable="false" />
+          <Property Name="Project_ID" Type="int" Nullable="false" />
+          <Property Name="Task" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblUsers">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Project_ID" Type="int" Nullable="false" />
+          <Property Name="Task_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TblTask_TblProject">
+          <End Role="TblProject" Type="Self.TblProject" Multiplicity="1" />
+          <End Role="TblTask" Type="Self.TblTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProject">
+              <PropertyRef Name="Project_ID" />
+            </Principal>
+            <Dependent Role="TblTask">
+              <PropertyRef Name="Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_CheckifUserUsed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteProjectInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Project_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteUserInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_InsertErrorInfoDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ErrorInfoMessage" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorInfoType" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductName" Type="varchar" Mode="In" />
+          <Parameter Name="Url" Type="varchar" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="IntroductionDate" Type="datetime" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertProjectInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Project" Type="varchar" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="Priority" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertUserInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+          <Parameter Name="Project_ID" Type="int" Mode="In" />
+          <Parameter Name="Task_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+          <Parameter Name="ProductName" Type="varchar" Mode="In" />
+          <Parameter Name="Url" Type="varchar" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="IntroductionDate" Type="datetime" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateProjectInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Project_ID" Type="int" Mode="In" />
+          <Parameter Name="Project" Type="varchar" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="Priority" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateUserInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeID" Type="varchar" Mode="In" />
+          <Parameter Name="Project_ID" Type="int" Mode="In" />
+          <Parameter Name="Task_ID" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ProductDBModelStoreContainer">
+          <EntitySet Name="ErrorInfoDetails" EntityType="Self.ErrorInfoDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblParentTask" EntityType="Self.TblParentTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblProject" EntityType="Self.TblProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblTask" EntityType="Self.TblTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblUsers" EntityType="Self.TblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblTask_TblProject" Association="Self.FK_TblTask_TblProject">
+            <End Role="TblProject" EntitySet="TblProject" />
+            <End Role="TblTask" EntitySet="TblTask" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProductDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProductDBEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_InsertProduct">
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="IntroductionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteProduct">
+          <Parameter Name="ProductId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateProduct">
+            <Parameter Name="ProductId" Mode="In" Type="Int32" />
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="IntroductionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ErrorInfoDetails" EntityType="ProductDBModel.ErrorInfoDetail" />
+          <FunctionImport Name="sp_InsertErrorInfoDetail">
+            <Parameter Name="ErrorInfoMessage" Mode="In" Type="String" />
+            <Parameter Name="ErrorInfoType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetProduct" ReturnType="Collection(ProductDBModel.sp_GetProduct_Result)" />
+          <FunctionImport Name="sp_GetAllProducts" />
+          <FunctionImport Name="sp_AllGetProducts" ReturnType="Collection(ProductDBModel.sp_GetProduct_Result)" />
+          <FunctionImport Name="sp_DeleteUser">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertUser">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateUser">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CheckifUserUsed" ReturnType="Collection(Int32)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="TblParentTasks" EntityType="ProductDBModel.TblParentTask" />
+          <EntitySet Name="TblProjects" EntityType="ProductDBModel.TblProject" />
+          <EntitySet Name="TblTasks" EntityType="ProductDBModel.TblTask" />
+          <EntitySet Name="TblUsers" EntityType="ProductDBModel.TblUser" />
+          <AssociationSet Name="FK_TblTask_TblParentTask" Association="ProductDBModel.FK_TblTask_TblParentTask">
+            <End Role="TblParentTask" EntitySet="TblParentTasks" />
+            <End Role="TblTask" EntitySet="TblTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblTask_TblProject" Association="ProductDBModel.FK_TblTask_TblProject">
+            <End Role="TblProject" EntitySet="TblProjects" />
+            <End Role="TblTask" EntitySet="TblTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblUsers_TblProject" Association="ProductDBModel.FK_TblUsers_TblProject">
+            <End Role="TblProject" EntitySet="TblProjects" />
+            <End Role="TblUser" EntitySet="TblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblUsers_TblTask" Association="ProductDBModel.FK_TblUsers_TblTask">
+            <End Role="TblTask" EntitySet="TblTasks" />
+            <End Role="TblUser" EntitySet="TblUsers" />
+          </AssociationSet>
+          <FunctionImport Name="sp_GetUsers" ReturnType="Collection(ProductDBModel.sp_GetUsers_Result)" />
+          <FunctionImport Name="sp_DeleteUserInfo">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertUserInfo">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="EmployeeID" Mode="In" Type="String" />
+            <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Task_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateUserInfo">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="EmployeeID" Mode="In" Type="String" />
+            <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Task_ID" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteProjectInfo">
+          <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertProjectInfo">
+            <Parameter Name="Project" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Priority" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateProjectInfo">
+            <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Project" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Priority" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="ErrorInfoDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorInfoMessage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorInfoType" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_GetProduct_Result">
+          <Property Type="String" Name="ProductName_" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="IntroductionDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Url" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="TblParentTask">
+          <Key>
+            <PropertyRef Name="Parent_ID" />
+          </Key>
+          <Property Name="Parent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Parent_Task" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TblTasks" Relationship="ProductDBModel.FK_TblTask_TblParentTask" FromRole="TblParentTask" ToRole="TblTask" />
+        </EntityType>
+        <EntityType Name="TblProject">
+          <Key>
+            <PropertyRef Name="Project_ID" />
+          </Key>
+          <Property Name="Project_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Project" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TblTasks" Relationship="ProductDBModel.FK_TblTask_TblProject" FromRole="TblProject" ToRole="TblTask" />
+          <NavigationProperty Name="TblUsers" Relationship="ProductDBModel.FK_TblUsers_TblProject" FromRole="TblProject" ToRole="TblUser" />
+        </EntityType>
+        <EntityType Name="TblTask">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Parent_ID" Type="Int32" Nullable="false" />
+          <Property Name="Project_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TblParentTask" Relationship="ProductDBModel.FK_TblTask_TblParentTask" FromRole="TblTask" ToRole="TblParentTask" />
+          <NavigationProperty Name="TblProject" Relationship="ProductDBModel.FK_TblTask_TblProject" FromRole="TblTask" ToRole="TblProject" />
+          <NavigationProperty Name="TblUsers" Relationship="ProductDBModel.FK_TblUsers_TblTask" FromRole="TblTask" ToRole="TblUser" />
+        </EntityType>
+        <EntityType Name="TblUser">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Project_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TblProject" Relationship="ProductDBModel.FK_TblUsers_TblProject" FromRole="TblUser" ToRole="TblProject" />
+          <NavigationProperty Name="TblTask" Relationship="ProductDBModel.FK_TblUsers_TblTask" FromRole="TblUser" ToRole="TblTask" />
+        </EntityType>
+        <Association Name="FK_TblTask_TblParentTask">
+          <End Type="ProductDBModel.TblParentTask" Role="TblParentTask" Multiplicity="1" />
+          <End Type="ProductDBModel.TblTask" Role="TblTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblParentTask">
+              <PropertyRef Name="Parent_ID" />
+            </Principal>
+            <Dependent Role="TblTask">
+              <PropertyRef Name="Parent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblTask_TblProject">
+          <End Type="ProductDBModel.TblProject" Role="TblProject" Multiplicity="1" />
+          <End Type="ProductDBModel.TblTask" Role="TblTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProject">
+              <PropertyRef Name="Project_ID" />
+            </Principal>
+            <Dependent Role="TblTask">
+              <PropertyRef Name="Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblUsers_TblProject">
+          <End Type="ProductDBModel.TblProject" Role="TblProject" Multiplicity="1" />
+          <End Type="ProductDBModel.TblUser" Role="TblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProject">
+              <PropertyRef Name="Project_ID" />
+            </Principal>
+            <Dependent Role="TblUser">
+              <PropertyRef Name="Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblUsers_TblTask">
+          <End Type="ProductDBModel.TblTask" Role="TblTask" Multiplicity="1" />
+          <End Type="ProductDBModel.TblUser" Role="TblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblTask">
+              <PropertyRef Name="Task_ID" />
+            </Principal>
+            <Dependent Role="TblUser">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetUsers_Result">
+          <Property Type="Int32" Name="User_ID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="Project_ID" Nullable="false" />
+          <Property Type="Int32" Name="Task_ID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProductDBModelStoreContainer" CdmEntityContainer="ProductDBEntities">
+          <FunctionImportMapping FunctionImportName="sp_InsertProduct" FunctionName="ProductDBModel.Store.sp_InsertProduct" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteProduct" FunctionName="ProductDBModel.Store.sp_DeleteProduct" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateProduct" FunctionName="ProductDBModel.Store.sp_UpdateProduct" />
+          <EntitySetMapping Name="ErrorInfoDetails">
+            <EntityTypeMapping TypeName="ProductDBModel.ErrorInfoDetail">
+              <MappingFragment StoreEntitySet="ErrorInfoDetails">
+                <ScalarProperty Name="ErrorInfoType" ColumnName="ErrorInfoType" />
+                <ScalarProperty Name="ErrorInfoMessage" ColumnName="ErrorInfoMessage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertErrorInfoDetail" FunctionName="ProductDBModel.Store.sp_InsertErrorInfoDetail" />
+          <FunctionImportMapping FunctionImportName="sp_GetProduct" FunctionName="ProductDBModel.Store.sp_GetProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProductDBModel.sp_GetProduct_Result">
+                <ScalarProperty Name="ProductName_" ColumnName="ProductName_" />
+                <ScalarProperty Name="IntroductionDate" ColumnName="IntroductionDate" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAllProducts" FunctionName="ProductDBModel.Store.sp_GetProduct" />
+          <FunctionImportMapping FunctionImportName="sp_AllGetProducts" FunctionName="ProductDBModel.Store.sp_GetProduct" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProductDBModel.sp_GetProduct_Result">
+                <ScalarProperty Name="ProductName_" ColumnName="ProductName_" />
+                <ScalarProperty Name="IntroductionDate" ColumnName="IntroductionDate" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DeleteUser" FunctionName="ProductDBModel.Store.sp_DeleteUser" />
+          <FunctionImportMapping FunctionImportName="sp_InsertUser" FunctionName="ProductDBModel.Store.sp_InsertUser" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="ProductDBModel.Store.sp_UpdateUser" />
+          <FunctionImportMapping FunctionImportName="sp_CheckifUserUsed" FunctionName="ProductDBModel.Store.sp_CheckifUserUsed" />
+          <EntitySetMapping Name="TblParentTasks">
+            <EntityTypeMapping TypeName="ProductDBModel.TblParentTask">
+              <MappingFragment StoreEntitySet="TblParentTask">
+                <ScalarProperty Name="Parent_Task" ColumnName="Parent_Task" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblProjects">
+            <EntityTypeMapping TypeName="ProductDBModel.TblProject">
+              <MappingFragment StoreEntitySet="TblProject">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="ProductDBModel.TblProject">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="ProductDBModel.Store.sp_InsertProjectInfo">
+                  <ScalarProperty Name="Priority" ParameterName="Priority" />
+                  <ScalarProperty Name="EndDate" ParameterName="EndDate" />
+                  <ScalarProperty Name="StartDate" ParameterName="StartDate" />
+                  <ScalarProperty Name="Project" ParameterName="Project" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="ProductDBModel.Store.sp_UpdateProjectInfo">
+                  <ScalarProperty Name="Priority" ParameterName="Priority" Version="Current" />
+                  <ScalarProperty Name="EndDate" ParameterName="EndDate" Version="Current" />
+                  <ScalarProperty Name="StartDate" ParameterName="StartDate" Version="Current" />
+                  <ScalarProperty Name="Project" ParameterName="Project" Version="Current" />
+                  <ScalarProperty Name="Project_ID" ParameterName="Project_ID" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="ProductDBModel.Store.sp_DeleteProjectInfo">
+                  <ScalarProperty Name="Project_ID" ParameterName="Project_ID" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblTasks">
+            <EntityTypeMapping TypeName="ProductDBModel.TblTask">
+              <MappingFragment StoreEntitySet="TblTask">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblUsers">
+            <EntityTypeMapping TypeName="ProductDBModel.TblUser">
+              <MappingFragment StoreEntitySet="TblUsers">
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="ProductDBModel.TblUser">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="ProductDBModel.Store.sp_InsertUserInfo">
+                  <ScalarProperty Name="Task_ID" ParameterName="Task_ID" />
+                  <ScalarProperty Name="Project_ID" ParameterName="Project_ID" />
+                  <ScalarProperty Name="EmployeeID" ParameterName="EmployeeID" />
+                  <ScalarProperty Name="LastName" ParameterName="LastName" />
+                  <ScalarProperty Name="FirstName" ParameterName="FirstName" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="ProductDBModel.Store.sp_UpdateUserInfo">
+                  <ScalarProperty Name="User_ID" ParameterName="UserId" Version="Current" />
+                  <ScalarProperty Name="Task_ID" ParameterName="Task_ID" Version="Current" />
+                  <ScalarProperty Name="Project_ID" ParameterName="Project_ID" Version="Current" />
+                  <ScalarProperty Name="EmployeeID" ParameterName="EmployeeID" Version="Current" />
+                  <ScalarProperty Name="LastName" ParameterName="LastName" Version="Current" />
+                  <ScalarProperty Name="FirstName" ParameterName="FirstName" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="ProductDBModel.Store.sp_DeleteUserInfo" >
+                  <ScalarProperty Name="User_ID" ParameterName="UserId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetUsers" FunctionName="ProductDBModel.Store.sp_GetUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProductDBModel.sp_GetUsers_Result">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DeleteUserInfo" FunctionName="ProductDBModel.Store.sp_DeleteUserInfo" />
+          <FunctionImportMapping FunctionImportName="sp_InsertUserInfo" FunctionName="ProductDBModel.Store.sp_InsertUserInfo" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateUserInfo" FunctionName="ProductDBModel.Store.sp_UpdateUserInfo" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteProjectInfo" FunctionName="ProductDBModel.Store.sp_DeleteProjectInfo" />
+          <FunctionImportMapping FunctionImportName="sp_InsertProjectInfo" FunctionName="ProductDBModel.Store.sp_InsertProjectInfo" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateProjectInfo" FunctionName="ProductDBModel.Store.sp_UpdateProjectInfo" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

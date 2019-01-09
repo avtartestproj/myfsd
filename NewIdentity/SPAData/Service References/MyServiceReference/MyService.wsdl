@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MyService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:53826/MyService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:53826/MyService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:53826/MyService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfServiceApp" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMyService_LogErrorinDB_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogErrorinDB" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_LogErrorinDB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogErrorinDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddUserInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddUserInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUser" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetProjectById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectById" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetProjectById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllUsersById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersById" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllUsersById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllProjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProjects" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllProjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTasks" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetTaskById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskById" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetTaskById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddProjectInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddProjectInfo" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddProjectInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddProjectInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTask" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateProjectUserInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProjectUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateProjectUserInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProjectUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_DeleteProjectById_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProjectById" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_DeleteProjectById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProjectByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddParentTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddParentTask" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddParentTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddParentTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTask" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_AddTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateTaskDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTaskDetails" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_UpdateTaskDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTaskDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_DeleteUserById_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserById" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_DeleteUserById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_CheckUserDependencyById_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckUserDependencyById" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_CheckUserDependencyById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckUserDependencyByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllParentTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllParentTasks" />
+  </wsdl:message>
+  <wsdl:message name="IMyService_GetAllParentTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllParentTasksResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMyService">
+    <wsdl:operation name="LogErrorinDB">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/LogErrorinDB" message="tns:IMyService_LogErrorinDB_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/LogErrorinDBResponse" message="tns:IMyService_LogErrorinDB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetAllUsers" message="tns:IMyService_GetAllUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetAllUsersResponse" message="tns:IMyService_GetAllUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/AddUserInfo" message="tns:IMyService_AddUserInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/AddUserInfoResponse" message="tns:IMyService_AddUserInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/UpdateUser" message="tns:IMyService_UpdateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/UpdateUserResponse" message="tns:IMyService_UpdateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetProjectById" message="tns:IMyService_GetProjectById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetProjectByIdResponse" message="tns:IMyService_GetProjectById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetAllUsersById" message="tns:IMyService_GetAllUsersById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetAllUsersByIdResponse" message="tns:IMyService_GetAllUsersById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetAllProjects" message="tns:IMyService_GetAllProjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetAllProjectsResponse" message="tns:IMyService_GetAllProjects_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetAllTasks" message="tns:IMyService_GetAllTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetAllTasksResponse" message="tns:IMyService_GetAllTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetTaskById" message="tns:IMyService_GetTaskById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetTaskByIdResponse" message="tns:IMyService_GetTaskById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProjectInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/AddProjectInfo" message="tns:IMyService_AddProjectInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/AddProjectInfoResponse" message="tns:IMyService_AddProjectInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/UpdateTask" message="tns:IMyService_UpdateTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/UpdateTaskResponse" message="tns:IMyService_UpdateTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProjectUserInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/UpdateProjectUserInfo" message="tns:IMyService_UpdateProjectUserInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/UpdateProjectUserInfoResponse" message="tns:IMyService_UpdateProjectUserInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProjectById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/DeleteProjectById" message="tns:IMyService_DeleteProjectById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/DeleteProjectByIdResponse" message="tns:IMyService_DeleteProjectById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddParentTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/AddParentTask" message="tns:IMyService_AddParentTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/AddParentTaskResponse" message="tns:IMyService_AddParentTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/AddTask" message="tns:IMyService_AddTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/AddTaskResponse" message="tns:IMyService_AddTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/UpdateTaskDetails" message="tns:IMyService_UpdateTaskDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/UpdateTaskDetailsResponse" message="tns:IMyService_UpdateTaskDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/DeleteUserById" message="tns:IMyService_DeleteUserById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/DeleteUserByIdResponse" message="tns:IMyService_DeleteUserById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserDependencyById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/CheckUserDependencyById" message="tns:IMyService_CheckUserDependencyById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/CheckUserDependencyByIdResponse" message="tns:IMyService_CheckUserDependencyById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllParentTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyService/GetAllParentTasks" message="tns:IMyService_GetAllParentTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyService/GetAllParentTasksResponse" message="tns:IMyService_GetAllParentTasks_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMyService" type="tns:IMyService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LogErrorinDB">
+      <soap:operation soapAction="http://tempuri.org/IMyService/LogErrorinDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserInfo">
+      <soap:operation soapAction="http://tempuri.org/IMyService/AddUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <soap:operation soapAction="http://tempuri.org/IMyService/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectById">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetProjectById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersById">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetAllUsersById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProjects">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetAllProjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskById">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetTaskById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProjectInfo">
+      <soap:operation soapAction="http://tempuri.org/IMyService/AddProjectInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTask">
+      <soap:operation soapAction="http://tempuri.org/IMyService/UpdateTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProjectUserInfo">
+      <soap:operation soapAction="http://tempuri.org/IMyService/UpdateProjectUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProjectById">
+      <soap:operation soapAction="http://tempuri.org/IMyService/DeleteProjectById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddParentTask">
+      <soap:operation soapAction="http://tempuri.org/IMyService/AddParentTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTask">
+      <soap:operation soapAction="http://tempuri.org/IMyService/AddTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskDetails">
+      <soap:operation soapAction="http://tempuri.org/IMyService/UpdateTaskDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserById">
+      <soap:operation soapAction="http://tempuri.org/IMyService/DeleteUserById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserDependencyById">
+      <soap:operation soapAction="http://tempuri.org/IMyService/CheckUserDependencyById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllParentTasks">
+      <soap:operation soapAction="http://tempuri.org/IMyService/GetAllParentTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MyService">
+    <wsdl:port name="BasicHttpBinding_IMyService" binding="tns:BasicHttpBinding_IMyService">
+      <soap:address location="http://localhost:53826/MyService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

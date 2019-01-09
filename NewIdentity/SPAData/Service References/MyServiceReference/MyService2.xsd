@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfServiceApp" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfServiceApp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfUserInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserInfo" nillable="true" type="tns:ArrayOfUserInfo" />
+  <xs:complexType name="UserInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Employee_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Project_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Task_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="User_ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserInfo" nillable="true" type="tns:UserInfo" />
+  <xs:complexType name="ProjectInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Manager_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Priority" type="xs:int" />
+      <xs:element minOccurs="0" name="Project" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Project_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUserInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProjectInfo" nillable="true" type="tns:ProjectInfo" />
+  <xs:complexType name="ArrayOfProjectInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProjectInfo" nillable="true" type="tns:ProjectInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProjectInfo" nillable="true" type="tns:ArrayOfProjectInfo" />
+  <xs:complexType name="ArrayOfProjectTaskInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProjectTaskInfo" nillable="true" type="tns:ProjectTaskInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProjectTaskInfo" nillable="true" type="tns:ArrayOfProjectTaskInfo" />
+  <xs:complexType name="ProjectTaskInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Parent_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Priority" type="xs:int" />
+      <xs:element minOccurs="0" name="Project_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Status" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Task" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Task_Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProjectTaskInfo" nillable="true" type="tns:ProjectTaskInfo" />
+  <xs:complexType name="ArrayOfParentTaskInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ParentTaskInfo" nillable="true" type="tns:ParentTaskInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfParentTaskInfo" nillable="true" type="tns:ArrayOfParentTaskInfo" />
+  <xs:complexType name="ParentTaskInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ParentTaskName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentTask_Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ParentTaskInfo" nillable="true" type="tns:ParentTaskInfo" />
+</xs:schema>

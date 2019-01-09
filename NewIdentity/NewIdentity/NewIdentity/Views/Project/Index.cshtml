@@ -1,0 +1,434 @@
+﻿@model SPAData.ProjectInfoViewModel
+@{
+    ViewBag.Title = "SPA POC";
+    ViewBag.startDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+    ViewBag.endDate= DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd");
+    }
+
+
+@using (Html.BeginForm())
+{
+    <!--Begin Alert Message Area-->
+
+
+    @Html.HiddenFor(m => m.EventCommand)
+    @Html.HiddenFor(m => m.Mode)
+    @Html.HiddenFor(m => m.EventArgument)
+
+
+
+    <!-- End Hidden fileds area-->
+
+
+
+    <!-- Begin Detail Area-->
+    // if (Model.IsDetailAreaVisibie)
+    {
+
+        <div class="panel panel-primary">
+            <div class="panel panel-heading">
+                <h1 class="panel-title">Project Information</h1>
+            </div>
+            <div class="panel panel-body">
+                <!-- End Alert Message Area-->
+                @if (!Model.IsValid)
+                {
+                    <div class="alert alert-danger alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dissmiss="alert">
+                            <span aria-hidden="true">
+                                &times;
+                            </span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        @Html.ValidationSummary(false)
+                    </div>
+                }
+                <!-- Begin Hidden fileds area-->
+                <div class="form-group">
+
+                    @if (Model.Mode == "Add")
+                    {  @*@Html.LabelFor(m => m.Entity.User_ID)
+                        @Html.TextBoxFor(m => m.Entity.User_ID, new { @class = "form-control" })*@
+                    }
+                    @*else
+                        {@Html.TextBoxFor(m => m.Entity.User_ID, new { @readonly = "readonly", @class = "form-control" }) }*@
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.Entity.Project_ID)*@
+                    @Html.HiddenFor(m => m.Entity.Project_ID, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entity.Project)
+                    @Html.TextBoxFor(m => m.Entity.Project, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" name="SelectDate" id="dateCheckbox" > Set Start and End Date.
+                    @*<input type="date"  style="width:150px" id="StartDate" min=@ViewBag.today value=@ViewBag.today disabled />
+                    <input type="date" style="width:150px" id="EndDate" min=@ViewBag.tomorrow value=@ViewBag.tomorrow disabled />*@
+                    
+                </div>
+
+                <div class="form-group">
+                    @*<input type="checkbox" name="SelectDate" id="dateCheckbox"> Set Start and End Date.*@
+                    @*<input type="date" style="width:150px" id="StartDate" min=@ViewBag.today value=@ViewBag.today disabled />
+                    <input type="date" style="width:150px" id="EndDate" min=@ViewBag.tomorrow value=@ViewBag.tomorrow disabled />*@
+                    @Html.LabelFor(m => m.Entity.StartDate)
+                    @Html.HiddenFor(m => m.Entity.StartDate, new {  id = "EM_StartDate" })
+                    <input type="date" style="width:150px" id="StartDate" min=@ViewBag.startDate value=@ViewBag.startDate disabled />
+                    @Html.LabelFor(m => m.Entity.EndDate)
+                    @Html.HiddenFor(m => m.Entity.EndDate , new {  id = "EM_EndDate" })
+                    <input type="date" style="width:150px" id="EndDate" min=@ViewBag.endDate value=@ViewBag.endDate disabled />
+                </div>
+                <div class="form-group">
+                    <div class="slidecontainer">
+                        <label style="padding-left:50px ; color:lightgray" >0</label>
+                        <label style="padding-left:260px ; color:lightgray">30</label>
+                        <br />
+                        <label>Priority</label>
+                        @if (Model.Mode == "Edit")
+                        {
+                            <input id="rgpriority" style="width:350px" type="range" value="@Model.Entity.Priority" name="points" min="0" max="30">
+                        }
+                        else
+                        {
+                            <input id="rgpriority" style="width:350px" type="range" value="0" name="points" min="0" max="30">
+
+                        }
+                        @Html.HiddenFor(m => m.Entity.Priority, new { id = "EM_Priority" })
+                        <label id="lblPriority" style="color:blue"></label>
+                        </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Manager")
+                    @Html.TextBoxFor(m => m.Manager_Name, new { id = "EM_ManagerName" })
+                    <button id="btnSearchManager" class="btn btn-sm btn-primary" data-command-action2="searchManager"><i class="glyphicon glyphicon-search"></i> @Resources.Resource.Search</button>
+                    @Html.Hidden("txtManagerId", "", new { @class = "form-control" })
+                    @Html.HiddenFor(m => m.Entity.Manager_ID , new { id = "EM_Id" })
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.Entity.Project_ID)
+                        @Html.TextBoxFor(m => m.Entity.Project_ID, new { @class = "form-control" })*@
+                    @Html.HiddenFor(m => m.Entity.Project_ID)
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.Entity.Task_ID)
+                        @Html.TextBoxFor(m => m.Entity.Task_ID, new { @class = "form-control" })*@
+                    @Html.HiddenFor(m => m.Entity.EndDate)
+                </div>
+                <div class="form-group">
+                    @Html.HiddenFor(m => m.Entity.EndDate)
+                </div>
+            </div>
+            <div class="panel panel-footer">
+
+
+                <button id="btnAdd" disabled="@((Model.Mode == "Edit"))" class="btn btn-sm btn-primary" data-command-action="add"><i class="glyphicon glyphicon-share-alt"></i> @Resources.Resource.Add</button>
+
+                <button id="btnSave" disabled="@((Model.Mode != "Add") && (Model.Mode != "Edit"))" class="btn btn-sm btn-primary" data-command-action="save" value="@Resources.Resource.ProductName"><i class="glyphicon glyphicon-share-alt"></i> Save</button>
+                <button id="btnCancel" class=" btn btn-sm btn-primary"
+                        formnovalidate="formnovalidate"
+                        data-command-action="cancel">
+                    <i class="glyphicon glyphicon-share-alt"></i> Reset
+
+                </button>
+            </div>
+        </div>
+    }
+
+    <div class="modal" id="searchManager" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Manager</h4>
+                </div>
+                @Html.LabelFor(m => m.SearchUserEntity.FirstName)
+                @Html.TextBoxFor(m => m.SearchUserEntity.FirstName,
+new { @class = "form-control" })
+                    <button id="btnSearchM" class="btn btn-sm btn-primary" data-command-action="searchUser" data-command-val=txtManager.value><i class="glyphicon glyphicon-search"></i> @Resources.Resource.Search</button>
+                <div class="modal-body">
+                    <div class="table table-responsive">
+                        <table class="table table-condensed table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    
+                                    <th>User Id</th>
+                                    <th>First Name</th>
+                                    <th>Employee ID</th>
+                                    @*<th>Project ID</th>
+                        <th>Task ID</th>*@
+                                    <th class="custom-action-button">Select</th>
+                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            <tr>
+
+                                                <td>@item.User_ID</td>
+                                                <td><a data-command-val="@item.User_ID" data-command-action="@item.FirstName @item.LastName" onclick="SelectManager('@item.User_ID','@item.FirstName');">@item.FirstName</a></td>
+                                                <td>@item.Employee_ID</td>
+                                                <td class="custom-action-button">
+                                                    <a href="#" data-command-action="@item.User_ID"
+                                                       data-command-val="@item.FirstName @item.LastName"
+                                                       class="btn btn-default">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+
+                            
+                           
+
+                        </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- End Detail Area -->
+        <!-- Begin Search area-->
+        //if (Model.isSearchAreaVisible)
+        {
+        <div class="panel panel-primary">
+            <div class="panel panel-heading">
+                <h1 class="panel-title">Search Project</h1>
+            </div>
+            <div class="panel panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SearchEntity.Project)
+                    @Html.TextBoxFor(m => m.SearchEntity.Project,
+            new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="panel panel-footer">
+                <button id="btnSearch" class=" btn btn-sm btn-primary" data-command-action="search"><i class="glyphicon glyphicon-search"></i> @Resources.Resource.Search</button>
+                <button id="btnreset" class=" btn btn-sm btn-primary" data-command-action="resetsearch"><i class="glyphicon glyphicon-share-alt"></i> @Resources.Resource.Reset</button>
+
+            </div>
+        </div>
+        }
+        <!-- End Search area-->
+        <!-- Begin List Area -->
+        // if (Model.IsListAreaVisible)
+        {
+        if (!Model.IsValid)
+        {
+        <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dissmiss="alert">
+                <span aria-hidden="true">
+                    &times;
+                </span>
+                <span class="sr-only">Close</span>
+            </button>
+            @Html.ValidationSummary(false)
+        </div>
+        }
+
+        <div class="table table-responsive">
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                     
+                    </tr>
+                </thead>
+                @Html.Label("Sort by")
+                <input type="button" name="btnsortstartdate" class="sort" id="btnsortStartDate" value="Start Date" data-command-sort="startdate" /> &nbsp;
+                <input type="button" name="btnsortEndDate" class="sort" id="btnsortEndDate" value="End Date"  data-command-sort="enddate" /> &nbsp;
+                <input type="button" name="btnsortPriority" class="sort" id="btnsortPriority" value="Priority"  data-command-sort="priority"/> &nbsp;
+                <input type="button" name="btnsortCompleted"  class="sort" id="btnsortCompleted" value="Completed" data-command-sort="completed" /> &nbsp;
+                @Html.HiddenFor(m => m.SortBy, new { id = "EM_Sortby" })
+                <tbody>
+                    @foreach (var item in Model.ProjectsInfo)
+                    {
+                        <tr>
+                            
+                            <td style="background-color:aliceblue; border:2px solid;width:350px;height:159px" >
+                                <br />
+                                    <b>Project: </b>  @item.Project <br /><br />
+
+                                    <b>No of Task:&nbsp;</b> @item.TotalNoOfTasks
+                                &nbsp;&nbsp;<b>Completed:&nbsp;</b> @item.CompletedNoOfTasks <br /> <br />
+                                    <b>Start Date:&nbsp;</b>  @item.StartDate.ToString("MM/dd/yyyy")
+                                &nbsp;&nbsp;<b>End Date:&nbsp;</b>  @item.EndDate.ToString("MM/dd/yyyy")
+                              
+</td>
+                            <td>
+                                <br />
+                            <label>Priority :&nbsp;</label> <br />
+                            @item.Priority</td>
+                            @*<td>@item.Project_ID</td>
+                                <td>@item.Task_ID</td>*@
+                            <td class="custom-action-button">
+                                <a href="#" data-command-action6="edit"
+                                   data-command-val6="@item.Project_ID"
+                                   class="btn btn-default">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a><br />
+                                <a href="#" data-command-action7="delete"
+                                   data-command-val7="@item.Project_ID"
+                                   class="btn btn-default">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+
+                            </td>
+                            
+
+                            
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+        }
+        <!-- End List Area-->
+        }
+
+        @section scripts
+{
+            <script>
+
+                function SelectManager(managerID, managerName) {
+                    Mid = managerID;
+                    $('#Entity_ManagerID').val(managerID);
+                };
+                $(document).ready(function () {
+                    var txtManagerName;
+                    var Entity_ManagerID;
+                    $('#EM_StartDate').val($('#StartDate').val());
+                    $('#EM_EndDate').val($('#EndDate').val());
+                    $('input[type="checkbox"]').click(function () {
+                       
+                        $('#Entity_StartDate').attr("disabled", !$(this).is(':checked'));
+                        $('#Entity_EndDate').attr("disabled", !$(this).is(':checked'));
+                        $('#EM_StartDate').val( $('#StartDate').val());
+                        $('#EM_EndDate').val($('#EndDate').val());
+
+                        if ($(this).prop("checked") == true) {
+                            $("#StartDate").removeAttr("disabled");
+                            $("#EndDate").removeAttr("disabled");
+                        }
+                        else {
+                            $("#StartDate").attr("disabled", "disabled");
+                            $("#EndDate").attr("disabled", "disabled");
+                        }
+                    });
+
+                    $("#StartDate").on("change", function () {
+                        $('#EM_StartDate').val($('#StartDate').val());
+                    });
+                    $("#EM_Priority").on("change", function () {
+                        $('#rgpriority').val($('#EM_Priority').val());
+                    });
+                    $("#EndDate").on("change",function () {
+                        $('#EM_EndDate').val($('#EndDate').val());
+                    });
+
+                    $("[data-command-action2]").on("click", function (e) {
+                        $('#searchManager').modal('show');
+                        e.preventDefault();
+                        return;
+                    });
+                    $("[data-command-action6]").on("click", function (e) {
+                        e.preventDefault;
+                        $("#EventCommand").val($(this).data("command-action6"));
+                        $("#EventArgument").val($(this).data("command-val6"));
+                        $("form").submit();
+                    });
+                    $("[data-command-action7]").on("click", function (e) {
+                        e.preventDefault;
+                        $("#EventCommand").val($(this).data("command-action7"));
+                        $("#EventArgument").val($(this).data("command-val7"));
+                        $("form").submit();
+                    });
+                    
+                    $("[data-command-sort]").on("click", function (e) {
+                   
+                        $('#EM_Sortby').val($(this).data("command-sort"));
+                        $("#btnreset").trigger("click");
+                        
+                    });
+                    
+                    $("[data-command-action3]").on("click", function (e) {
+                       // $('#searchManager').modal('show');
+                       // e.preventDefault();
+                        //return;
+                    });
+                    $("a").click(function () {
+                        Entity_ManagerID = parseInt($(this).data("command-val"));
+                        $('#txtManagerName').val($(this).data("command-action"));
+                        $('#Entity_ManagerID').val(parseInt($(this).data("command-val")));
+                        $('#txtManagerId').val(parseInt($(this).data("command-val")));
+                        $("#EM_Id").val(Entity_ManagerID);
+                        $("#EM_Id").val(Entity_ManagerID);
+                        $("#EM_ManagerName").val($(this).data("command-action"))
+                        $('#searchManager').modal('hide');
+                        e.preventDefault();
+                        return;
+                    });
+                    var slider = document.getElementById("rgpriority");
+                    var output = document.getElementById("lblPriority");
+                    output.innerHTML = slider.value;
+
+                    slider.oninput = function () {
+                        output.innerHTML = this.value;
+                    }
+                    
+                    var output = document.getElementById("lblPriority");
+                    output.innerHTML = 0;
+
+                    slider.oninput = function () {
+                        output.innerHTML = this.value;
+                        $("#EM_Priority").val(this.value);
+                    }
+                   
+                    $("[data-command-action1]").on("click", function (e) {
+
+                        if (!confirm('Are you sure you want to delete this?')) {
+                            e.preventDefault();
+                            return;
+                        }
+                        $("#EventCommand").val($(this).data("command-action1"));
+                        $("#EventArgument").val($(this).data("command-val"));
+                        $("form").submit();
+                    });
+
+
+                    $("[data-command-action]").on("click", function (e) {
+                       
+                        e.preventDefault;
+                        $("#EM_Id").val(Entity_ManagerID);
+                        $("#EventCommand").val($(this).data("command-action"));
+                        $("#EventArgument").val($(this).data("command-val"));
+
+                        $("form").submit();
+
+                    });
+                 //   $('input[type="checkbox"]').click(function () {
+                      
+                  //  });
+
+                });
+            </script>
+        }
